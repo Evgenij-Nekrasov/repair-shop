@@ -1,8 +1,9 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { Button } from '@/src/components/ui/button';
 import { ButtonHTMLAttributes } from 'react';
+
+import { Button } from '@/src/components/ui/button';
 
 type BackButtonProps = {
   title: string;

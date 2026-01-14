@@ -2,6 +2,7 @@ import * as Sentry from '@sentry/nextjs';
 
 import { getCustomer } from '@/src/lib/queries/getCustomer';
 import { BackButton } from '@/src/components/BackButton';
+import { CustomerForm } from '@/src/app/(rs)/customers/form/CustomerForm';
 
 export default async function CustomerFormPage({
   searchParams,
@@ -23,7 +24,9 @@ export default async function CustomerFormPage({
           </div>
         );
       }
+      return <CustomerForm customer={customer} />;
     } else {
+      return <CustomerForm />;
     }
   } catch (error) {
     if (error instanceof Error) {

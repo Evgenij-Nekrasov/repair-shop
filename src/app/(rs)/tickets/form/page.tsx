@@ -3,6 +3,7 @@ import * as Sentry from '@sentry/nextjs';
 import { getCustomer } from '@/src/lib/queries/getCustomer';
 import { getTicket } from '@/src/lib/queries/getTicket';
 import { BackButton } from '@/src/components/BackButton';
+import { TicketForm } from '@/src/app/(rs)/tickets/form/TicketForm';
 
 export default async function TicketFormPage({
   searchParams,
@@ -37,14 +38,16 @@ export default async function TicketFormPage({
 
       if (!customer.active) {
         return (
-          <div className="flex flex-col items-center justify-center">
+          <>
             <h2 className="text-2xl">Customer id #{customerId} is inactive</h2>
             <BackButton title="Go back" className="mt-4" variant="outline">
               Back to Customers
             </BackButton>
-          </div>
+          </>
         );
       }
+
+      return <TicketForm customer={customer} />;
     }
 
     if (ticketId) {
@@ -52,16 +55,17 @@ export default async function TicketFormPage({
 
       if (!ticket) {
         return (
-          <div className="flex flex-col items-center justify-center">
+          <>
             <h2 className="text-2xl">Ticket id #{ticketId} not found</h2>
             <BackButton title="Go back" className="mt-4" variant="outline">
               Back to Tickets
             </BackButton>
-          </div>
+          </>
         );
       }
 
-      await getCustomer(ticket.customerId);
+      const customer = await getCustomer(ticket.customerId);
+      return <TicketForm ticket={ticket} customer={customer} />;
     }
   } catch (error) {
     if (error instanceof Error) {
