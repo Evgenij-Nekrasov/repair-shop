@@ -21,6 +21,7 @@ export const insertCustomerSchema = createInsertSchema(customers, {
     .max(20),
   city: z.string().min(1, 'City is required').max(100),
   country: z.string().min(1, 'Country is required').max(100),
+  notes: z.string().max(1000).optional(),
 });
 
 export const selectCustomerSchema = createSelectSchema(customers);

@@ -21,6 +21,7 @@ export const customers = pgTable('customers', {
   city: varchar('city', { length: 100 }).notNull(),
   country: varchar('country', { length: 100 }).notNull(),
   active: boolean('active').default(true).notNull(),
+  notes: text('notes'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at')
     .$onUpdate(() => new Date())
